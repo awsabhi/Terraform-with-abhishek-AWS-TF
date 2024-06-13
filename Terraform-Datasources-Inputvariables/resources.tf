@@ -8,8 +8,9 @@ resource "aws_key_pair" "testing" {
 
 
 resource "aws_instance" "myec2vm" {
-  ami = "ami-0533f2ba8a1995cf9"
+  ami = data.aws_ami.example.id
   key_name = aws_key_pair.testing.key_name
+  vpc_security_group_ids = [ aws_security_group.vpc-ssh.id, aws_security_group.vpc-web.id]
   instance_type = var.instance_type
   user_data = file("${path.module}/app1-install.sh")
   tags = {
