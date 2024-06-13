@@ -1,11 +1,11 @@
-output "public_ip" {
+output "instance_public_ip" {
     description = "Print the public ip of the instances"
-    value = aws_instance.myec2vm.public_ip
+    value = toset([for myec2vm in aws_instance.myec2vm : myec2vm.public_ip])
   
 }
 
-output "public-dns" {
+output "instance_public-dns" {
     description = "print the public dns name"
-    value = aws_instance.myec2vm.public_dns
+    value = toset([for myec2vm in aws_instance.myec2vm : myec2vm.public_dns])
   
 }
